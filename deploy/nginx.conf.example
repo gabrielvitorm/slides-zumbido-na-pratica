@@ -1,0 +1,14 @@
+server {
+    listen 80;
+    server_name slides.dominio.com;
+
+    root /var/www/slides.dominio.com;
+    index index.html;
+
+    location / {
+        try_files $uri $uri/ /index.html;
+    }
+
+    gzip on;
+    gzip_types text/css application/javascript image/svg+xml;
+}
