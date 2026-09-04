@@ -11,11 +11,10 @@
 }
 * { box-sizing: border-box; }
 html, body, #root {
-  margin: 0; padding: 0; height: 100%;
+  margin: 0; padding: 0; min-height: 100%;
   background: #020512;
   color: var(--ink);
   font-family: 'IBM Plex Sans', sans-serif;
-  overflow: hidden;
 }
 h1, h2, h3, .display {
   font-family: 'Space Grotesk', sans-serif;
@@ -168,3 +167,56 @@ h1, h2, h3, .display {
   font-size: 18px;
 }
 .not-found a { color: var(--accent); }
+
+/* Home (lista de cursos) e página de curso (capa + lista de aulas) */
+.home, .trilha-home {
+  min-height: 100vh;
+  padding: 100px 80px 60px;
+  background-image:
+    radial-gradient(circle at 15% 10%, rgba(51, 214, 192, .06), transparent 40%),
+    radial-gradient(circle at 85% 90%, rgba(255, 209, 102, .05), transparent 40%);
+}
+.home .kicker, .trilha-home .kicker {
+  color: var(--accent); font-size: 16px; font-weight: 500; margin-bottom: 18px;
+  font-family: 'IBM Plex Mono', monospace;
+}
+.home-header h1, .trilha-home-header h1 { font-size: 48px; line-height: 1.15; max-width: 900px; }
+.trilha-home-header .sub { margin-top: 20px; font-size: 18px; color: var(--muted); line-height: 1.5; max-width: 680px; }
+
+.home-grid {
+  margin-top: 56px; display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 24px; max-width: 900px;
+}
+.home-card {
+  display: flex; flex-direction: column; gap: 16px;
+  padding: 32px; border-radius: 14px;
+  border: 1px solid var(--line); background: var(--panel);
+  text-decoration: none; color: var(--ink);
+  transition: border-color .2s ease, transform .2s ease;
+}
+.home-card h2 { font-size: 26px; line-height: 1.25; }
+a.home-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+.home-card-cta { font-family: 'IBM Plex Mono', monospace; font-size: 14px; color: var(--accent); }
+.home-card-badge {
+  align-self: flex-start; font-family: 'IBM Plex Mono', monospace; font-size: 13px;
+  color: var(--muted); border: 1px solid var(--line); border-radius: 999px;
+  padding: 4px 12px;
+}
+.home-card-disabled { opacity: .6; }
+
+.trilha-home-list {
+  margin: 56px 0 0; padding: 0; list-style: none;
+  max-width: 720px; counter-reset: none;
+}
+.trilha-home-list li + li { margin-top: 2px; }
+.trilha-home-list a {
+  display: flex; align-items: baseline; gap: 24px;
+  padding: 20px 4px; border-bottom: 1px solid var(--line);
+  color: var(--ink); text-decoration: none; font-size: 20px;
+  transition: color .2s ease;
+}
+.trilha-home-list li:first-child a { border-top: 1px solid var(--line); }
+.trilha-home-list a:hover { color: var(--accent); }
+.trilha-home-list a .mono { color: var(--muted); font-size: 15px; min-width: 28px; }
+.trilha-home-list a:hover .mono { color: var(--accent); }

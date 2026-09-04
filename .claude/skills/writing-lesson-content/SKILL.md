@@ -7,7 +7,7 @@ description: Use when drafting the actual copy — titles, points, steps — for
 
 ## Overview
 
-The existing 10 aulas (`plano-slides-completo.md`, `src/content/courses/zumbido-na-pratica/trafego.js`) share one voice: direct, practical, second person ("você"), written for fonoaudiólogos/otorrinos/médicos with no marketing background — not for marketers. Match this voice rather than writing generic course copy.
+The existing 10 aulas (`plano-slides-completo.md`, `src/content/courses/mini-curso-trafego/trafego.js`) share one voice: direct, practical, second person ("você"), written for fonoaudiólogos/otorrinos/médicos with no marketing background — not for marketers. Match this voice rather than writing generic course copy.
 
 ## Non-technical content (`pontos` for `nonTechLesson`)
 

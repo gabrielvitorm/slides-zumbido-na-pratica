@@ -1,7 +1,8 @@
 import { useEffect, useRef } from 'react'
-import { Link, Navigate, useNavigate, useParams } from 'react-router-dom'
+import { Navigate, useNavigate, useParams } from 'react-router-dom'
 import { courses } from '../content/registry.js'
 import { resolveScope, scopePath } from '../lib/deck.js'
+import NotFound from './NotFound.jsx'
 import Slide from './Slide.jsx'
 
 export default function DeckView() {
@@ -11,7 +12,7 @@ export default function DeckView() {
 
   const trilha = courses[curso]?.trilhas?.[trilhaSlug]
   const scope = resolveScope(trilha, aula)
-  const base = aula ? `/${curso}/${trilhaSlug}/${aula}` : `/${curso}/${trilhaSlug}`
+  const base = `/${curso}/${trilhaSlug}/${aula}`
 
   const total = scope ? scope.slides.length : 0
   const rawIdx = slide ? parseInt(slide, 10) - 1 : 0
@@ -47,20 +48,16 @@ export default function DeckView() {
   }, [])
 
   if (!trilha) {
-    return (
-      <div className="not-found">
-        <p>Curso ou trilha não encontrada.</p>
-        <Link to="/">Voltar ao início</Link>
-      </div>
-    )
+    return <NotFound message="Curso ou trilha não encontrada." />
   }
 
   if (!scope) {
     return (
-      <div className="not-found">
-        <p>Aula não encontrada.</p>
-        <Link to={`/${curso}/${trilhaSlug}`}>Voltar para a capa</Link>
-      </div>
+      <NotFound
+        message="Aula não encontrada."
+        to={`/${curso}/${trilhaSlug}`}
+        label="Voltar para a lista de aulas"
+      />
     )
   }
 

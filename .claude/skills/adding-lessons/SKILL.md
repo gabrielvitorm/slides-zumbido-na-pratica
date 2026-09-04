@@ -22,7 +22,7 @@ For lesson content voice/length, use the `writing-lesson-content` skill before f
 
 ## Where it goes
 
-Add the built lesson to the `lessons` array in the trilha file, e.g. `src/content/courses/zumbido-na-pratica/trafego.js`:
+Add the built lesson to the `lessons` array in the trilha file, e.g. `src/content/courses/mini-curso-trafego/trafego.js`:
 
 ```js
 export const lessons = [
@@ -32,7 +32,7 @@ export const lessons = [
 ]
 ```
 
-Nothing else needs to change — no routing, no registry, no components. The lesson's slug, URL, divider tag/number, and agenda are all derived from the `numero` and the array position you call the builder with.
+Nothing else needs to change — no routing, no registry, no components. The lesson's slug, URL, divider tag/number, and agenda are all derived from the `numero` and the array position you call the builder with, and it shows up automatically in the course's lesson menu (`TrilhaHome.jsx` renders `lessons` directly).
 
 ## Sanity-check the slide count
 

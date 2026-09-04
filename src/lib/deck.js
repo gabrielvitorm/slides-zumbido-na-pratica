@@ -1,9 +1,8 @@
-// Resolve o "escopo" de slides navegáveis pra uma URL: cada aula é um deck
-// fechado (não passa pra próxima aula sozinho); sem aula na URL, é só a capa.
+// Resolve o "escopo" de slides navegáveis de uma aula: cada aula é um deck
+// fechado (não passa pra próxima aula sozinho).
 
 export function resolveScope(trilha, aulaSlug) {
   if (!trilha) return null
-  if (!aulaSlug) return { slides: [trilha.cover] }
   const lesson = trilha.lessons.find((l) => l.slug === aulaSlug)
   return lesson ? { slides: lesson.slides } : null
 }
