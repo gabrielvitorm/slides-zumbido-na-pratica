@@ -21,7 +21,9 @@ Abre em `http://localhost:5173`.
 /:curso/:trilha/aula4/2                       -> slide 2 da aula 4 (bloco 1, tecnica)
 ```
 
-Exemplo real: `/zumbido-na-pratica/trafego/aula1`. Cada um dos slides da trilha tem uma URL própria (dá pra compartilhar/voltar direto num ponto específico); setas do teclado, clique nas laterais e os botões ‹ › avançam a URL também.
+Exemplo real: `/zumbido-na-pratica/trafego/aula1`. Cada slide tem uma URL própria (dá pra compartilhar/voltar direto num ponto específico); setas do teclado, clique nas laterais e os botões ‹ › avançam a URL também.
+
+Cada aula é um deck fechado: a navegação (setas, clique, teclado) fica limitada aos slides daquela aula só — chegar no último slide de uma aula não avança sozinho pra próxima. Pra ir de uma aula pra outra, é preciso trocar a URL (ex: compartilhar o link de cada aula separadamente).
 
 ## Adicionar/editar aulas de uma trilha existente
 
