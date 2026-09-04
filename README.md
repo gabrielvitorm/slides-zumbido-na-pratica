@@ -1,6 +1,6 @@
-# Slides do curso — Tráfego Pago para Profissionais de Zumbido
+# Slides dos cursos — Zumbido na Prática
 
-App React (Vite) que exibe os slides do curso como uma apresentação online, navegável por teclado, clique ou setas na tela. Feito para rodar sozinho em `slides.dominio.com`.
+App React (Vite + React Router) que exibe os slides dos cursos como uma apresentação online, com uma URL própria por curso/trilha/aula/slide. Navegável por teclado, clique ou setas na tela. Feito para rodar sozinho em `slides.dominio.com`.
 
 ## Rodar localmente
 
@@ -11,16 +11,35 @@ npm run dev
 
 Abre em `http://localhost:5173`.
 
-## Adicionar/editar aulas
+## Rotas
 
-Todo o conteúdo das aulas fica em `src/content/aulas.js`, como dados — não precisa mexer em componentes React para adicionar uma aula nova.
+```
+/                                             -> redireciona para o curso/trilha padrão
+/:curso/:trilha                               -> capa da trilha
+/:curso/:trilha/aula1                         -> slide 1 da aula 1
+/:curso/:trilha/aula1/3                       -> slide 3 da aula 1
+/:curso/:trilha/aula4/2                       -> slide 2 da aula 4 (bloco 1, tecnica)
+```
 
-- `nonTechLesson(numero, titulo, pontos)` — gera `divider → agenda → (point → agenda) × N` automaticamente. `pontos` é uma lista de `{ title, text }`.
+Exemplo real: `/zumbido-na-pratica/trafego/aula1`. Cada um dos slides da trilha tem uma URL própria (dá pra compartilhar/voltar direto num ponto específico); setas do teclado, clique nas laterais e os botões ‹ › avançam a URL também.
+
+## Adicionar/editar aulas de uma trilha existente
+
+Cada trilha tem seu próprio arquivo em `src/content/courses/<curso>/<trilha>.js` (ex: `src/content/courses/zumbido-na-pratica/trafego.js`). É só dados — não precisa mexer em componentes React:
+
+- `nonTechLesson(numero, titulo, pontos)` — gera `divider → agenda → (point → agenda) × N`. `pontos` é uma lista de `{ title, text }`.
 - `techLesson(numero, titulo, blocos)` — gera `divider → agenda → tecnica` (um slide por bloco). Cada bloco é `{ title, steps: [...], shotBox?: false, note? }`. Para um bloco sem espaço de print (`shot-box`), use `shotBox: false`. Para um bloco que é só uma fala (sem passos técnicos), use `{ type: 'point', title, text }` em vez de `steps`.
 
-Depois é só incluir a aula no array retornado por `buildDeck()`.
+O `slug` da aula na URL (`aula1`, `aula2`, ...) é gerado automaticamente a partir do número passado pra essas funções.
 
 Tipos de slide disponíveis: `cover`, `divider`, `agenda`, `point`, `tecnica` (componentes em `src/components/`).
+
+## Adicionar um curso ou trilha novo
+
+1. Crie `src/content/courses/<novo-curso>/<nova-trilha>.js` seguindo o modelo de `trafego.js` (uma `cover` + um array `lessons` construído com `nonTechLesson`/`techLesson`).
+2. Registre em `src/content/registry.js`, dentro de `courses`. A chave do curso e a chave da trilha viram os dois primeiros segmentos da URL.
+
+Não precisa mexer em rotas, navegação ou CSS — tudo isso já é genérico por trilha.
 
 ## Build de produção
 
@@ -38,8 +57,8 @@ Gera a pasta `dist/` com os arquivos estáticos prontos para publicar.
 4. Aponte o DNS do subdomínio `slides` para o IP da VPS.
 5. (Opcional) HTTPS com Certbot: `certbot --nginx -d slides.dominio.com`.
 
-Como é uma SPA sem rotas (é uma apresentação de slide único), não precisa de nenhuma regra especial de `try_files` além de servir `index.html`.
+Como agora tem rotas (uma por slide), o Nginx **precisa** do fallback pra `index.html` em qualquer caminho (já incluído no `deploy/nginx.conf.example`) — senão um link direto tipo `/zumbido-na-pratica/trafego/aula3/2` dá 404 ao recarregar a página.
 
 ### Atualizar depois de publicado
 
-Sempre que editar `src/content/aulas.js`, rode `npm run build` de novo e substitua o conteúdo de `dist/` na VPS (ou automatize com um script de deploy simples).
+Sempre que editar o conteúdo de uma trilha em `src/content/courses/...`, rode `npm run build` de novo e substitua o conteúdo de `dist/` na VPS (ou automatize com um script de deploy simples).

@@ -160,3 +160,11 @@ h1, h2, h3, .display {
 #btn-prev { left: 90px; }
 #btn-next { left: 150px; }
 .arrow-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+.not-found {
+  min-height: 100vh; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 16px;
+  background: #020512; color: var(--ink); text-align: center;
+  font-size: 18px;
+}
+.not-found a { color: var(--accent); }
